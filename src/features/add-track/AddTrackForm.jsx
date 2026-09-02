@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styles from './AddTrackForm.module.css';
 
 export const AddTrackForm = ({ onAddTrack }) => {
   const [title, setTitle] = useState('');
@@ -52,10 +53,10 @@ export const AddTrackForm = ({ onAddTrack }) => {
   }
 
   return (
-    <div style={{ border: '1px solid #ccc', padding: '15px', marginBottom: '20px' }}>
+    <div className={styles.formWrapper}>
       <h3>Добавить трек</h3>
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '10px' }}>
+        <div className={styles.fieldGroup}>
           <label>
             Название трека:
             <input
@@ -63,12 +64,11 @@ export const AddTrackForm = ({ onAddTrack }) => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Введите название"
-              style={{ marginLeft: '10px' }}
             />
           </label>
         </div>
 
-        <div style={{ marginBottom: '10px' }}>
+        <div className={styles.fieldGroup}>
           <label>
             Исполнитель:
             <input
@@ -76,12 +76,11 @@ export const AddTrackForm = ({ onAddTrack }) => {
               value={artist}
               onChange={(e) => setArtist(e.target.value)}
               placeholder="Введите исполнителя"
-              style={{ marginLeft: '10px' }}
             />
           </label>
         </div>
 
-        <div style={{ marginBottom: '10px' }}>
+        <div className={styles.fieldGroup}>
           <label>
             Ссылка на аудио (или загрузите файл ниже):
             <input
@@ -89,23 +88,18 @@ export const AddTrackForm = ({ onAddTrack }) => {
               value={audioUrl}
               onChange={(e) => setAudioUrl(e.target.value)}
               placeholder="https://example.com/track.mp3"
-              style={{ marginLeft: '10px', width: '300px' }}
             />
           </label>
-          <br />
-          <label>
-            Или выберите аудиофайл:
-            <input
-              type="file"
-              accept="audio/*"
-              onChange={handleAudioFileChange}
-              style={{ marginLeft: '10px' }}
-            />
-          </label>
-          {audioFile && <span> Выбран: {audioFile.name}</span>}
+          <div className={styles.fileInputWrapper}>
+            <label>
+              Или выберите аудиофайл:
+              <input type="file" accept="audio/*" onChange={handleAudioFileChange} />
+            </label>
+            {audioFile && <span className={styles.selectedFile}>Выбран: {audioFile.name}</span>}
+          </div>
         </div>
 
-        <div style={{ marginBottom: '10px' }}>
+        <div className={styles.fieldGroup}>
           <label>
             Ссылка на обложку (или загрузите картинку):
             <input
@@ -113,23 +107,18 @@ export const AddTrackForm = ({ onAddTrack }) => {
               value={coverUrl}
               onChange={(e) => setCoverUrl(e.target.value)}
               placeholder="https://example.com/cover.jpg"
-              style={{ marginLeft: '10px', width: '300px' }}
             />
           </label>
-          <br />
-          <label>
-            Или выберите изображение:
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleCoverFileChange}
-              style={{ marginLeft: '10px' }}
-            />
-          </label>
-          {coverFile && <span> Выбрано: {coverFile.name}</span>}
+          <div className={styles.fileInputWrapper}>
+            <label>
+              Или выберите изображение:
+              <input type="file" accept="image/*" onChange={handleCoverFileChange} />
+            </label>
+            {coverFile && <span className={styles.selectedFile}>Выбрано: {coverFile.name}</span>}
+          </div>
         </div>
 
-        <button type="submit">Добавить трек</button>
+        <button type="submit" className={styles.submitButton}>Добавить трек</button>
       </form>
   </div>
   );

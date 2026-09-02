@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {AddTrackForm} from "./features/add-track/AddTrackForm.jsx";
+import styles from './App.module.css';
 
 function App() {
   const [tracks, setTracks] = useState([]);
@@ -27,67 +28,37 @@ function App() {
   }
 
   return (
-      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '20px' }}>
-        <h1>🎵 Мой аудиоплеер</h1>
+    <div className={styles.appContainer}>
+      <h1 className={styles.appTitle}>🎵 Мой аудиоплеер</h1>
 
-        <AddTrackForm onAddTrack={handleAddTrack} />
+      <AddTrackForm onAddTrack={handleAddTrack} />
 
-        <h2>Список треков ({tracks.length})</h2>
+      <h2 className={styles.sectionTitle}>Список треков ({tracks.length})</h2>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-          gap: '20px',
-          marginTop: '20px'
-        }}>
-          {tracks.map((track) => (
-              <div key={track.id} style={{
-                border: '1px solid #ddd',
-                borderRadius: '8px',
-                padding: '10px',
-                textAlign: 'center',
-                background: '#f9f9f9',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-              }}>
-                {track.cover ? (
-                    <img
-                        src={track.cover}
-                        alt={track.title}
-                        style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '4px' }}
-                    />
-                ) : (
-                    <div style={{
-                      width: '100%',
-                      height: '150px',
-                      background: '#ccc',
-                      borderRadius: '4px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#666'
-                    }}>
-                      Без обложки
-                    </div>
-                )}
-                <h3 style={{ margin: '10px 0 5px', fontSize: '1.1rem' }}>{track.title}</h3>
-                <p style={{ margin: '0 0 10px', color: '#555', fontSize: '0.9rem' }}>{track.artist}</p>
-                <button
-                    onClick={() => handleRemoveTrack(track.id)}
-                    style={{
-                      background: '#ff4d4d',
-                      color: '#fff',
-                      border: 'none',
-                      borderRadius: '4px',
-                      padding: '5px 12px',
-                      cursor: 'pointer',
-                    }}
-                >
-                  ✕ Удалить
-                </button>
-              </div>
-          ))}
-        </div>
+      <div className={styles.tracksGrid}>
+        {tracks.map((track) => (
+          <div key={track.id} className={styles.trackCard}>
+            {track.cover ? (
+              <img
+                src={track.cover}
+                alt={track.title}
+                className={styles.trackCover}
+              />
+            ) : (
+              <div className={styles.coverPlaceholder}>Без обложки</div>
+            )}
+            <h3 className={styles.trackTitle}>{track.title}</h3>
+            <p className={styles.trackArtist}>{track.artist}</p>
+            <button
+              onClick={() => handleRemoveTrack(track.id)}
+              className={styles.deleteButton}
+            >
+              ✕ Удалить
+            </button>
+          </div>
+        ))}
       </div>
+    </div>
   );
 
 }
