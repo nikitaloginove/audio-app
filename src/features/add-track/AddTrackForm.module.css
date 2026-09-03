@@ -1,49 +1,49 @@
-.formWrapper {
+.add-track-form {
     border: 1px solid #ccc;
     padding: 15px;
     margin-bottom: 20px;
     border-radius: 6px;
 }
 
-.formWrapper h3 {
+.add-track-form__title {
     margin-top: 0;
 }
 
-.fieldGroup {
+.add-track-form__field {
     margin-bottom: 10px;
 }
 
-.fieldGroup label {
+.add-track-form__label {
     display: flex;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
 }
 
-.fieldGroup input[type="text"] {
+.add-track-form__input-text {
     padding: 4px 8px;
     border: 1px solid #aaa;
     border-radius: 4px;
     width: 300px;
 }
 
-.fileInputWrapper {
+.add-track-form__file-wrapper {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-top: 4px;
 }
 
-.fileInputWrapper input[type="file"] {
+.add-track-form__input-file {
     margin-left: 0;
 }
 
-.selectedFile {
+.add-track-form__selected-file {
     font-size: 0.9rem;
     color: #2c7a2c;
 }
 
-.submitButton {
+.add-track-form__submit {
     padding: 6px 16px;
     background: #4caf50;
     color: white;
@@ -53,6 +53,6 @@
     font-size: 1rem;
 }
 
-.submitButton:hover {
+.add-track-form__submit:hover {
     background: #388e3c;
 }
