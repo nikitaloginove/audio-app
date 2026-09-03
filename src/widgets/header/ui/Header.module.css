@@ -1,0 +1,20 @@
+.header {
+    background: var(--color-dark-blue);
+    padding: 16px 20px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.header__content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.header__title {
+    color: var(--color-white);
+    font-family: 'Tektur', sans-serif;
+    font-size: 2rem;
+    margin: 0;
+    letter-spacing: 1px;
+    text-align: center;
+}

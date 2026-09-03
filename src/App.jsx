@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { AddTrackForm } from './features/add-track/AddTrackForm';
 import { TrackCard } from './entities/track/ui/TrackCard';
+import { Header } from './widgets/header/ui/Header';
+import { Profile } from './widgets/profile/ui/Profile';
 import styles from './App.module.css';
 
 const STORAGE_KEY = 'tracks';
@@ -12,29 +14,18 @@ function App() {
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed)) {
-          const validTracks = parsed.filter(track => {
-            return (
-                track &&
-                typeof track === 'object' &&
-                typeof track.url === 'string' &&
-                !track.url.startsWith('blob:')
-            );
-          });
-          return validTracks;
+          const valid = parsed.filter(track => track && typeof track.url === 'string' && !track.url.startsWith('blob:'));
+          return valid;
         }
       }
     } catch (e) {
-      console.error('Ошибка при чтении localStorage:', e);
+      console.error('Ошибка чтения tracks:', e);
     }
     return [];
   });
 
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(tracks));
-    } catch (error) {
-      console.error('Ошибка при сохранении в localStorage:', error);
-    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tracks));
   }, [tracks]);
 
   const handleAddTrack = (newTrack) => {
@@ -45,34 +36,35 @@ function App() {
     setTracks((prev) => {
       const removed = prev.find(t => t.id === id);
       if (removed) {
-        if (removed.url && removed.url.startsWith('blob:')) {
-          URL.revokeObjectURL(removed.url);
-        }
-        if (removed.cover && removed.cover.startsWith('blob:')) {
-          URL.revokeObjectURL(removed.cover);
-        }
+        if (removed.url && removed.url.startsWith('blob:')) URL.revokeObjectURL(removed.url);
+        if (removed.cover && removed.cover.startsWith('blob:')) URL.revokeObjectURL(removed.cover);
       }
       return prev.filter(track => track.id !== id);
     });
   };
 
   return (
-      <div className={styles.app}>
-        <h1 className={styles['app__title']}>Аудиоплеер</h1>
-        <AddTrackForm onAddTrack={handleAddTrack} />
-        <h2 className={styles['app__section-title']}>
-          Список треков ({tracks?.length})
-        </h2>
-        <div className={styles['track-list']}>
-          {tracks?.map((track) => (
-              <TrackCard
-                  key={track.id}
-                  track={track}
-                  onRemove={handleRemoveTrack}
-              />
-          ))}
+      <>
+        <Header />
+        <div className={styles['app']}>
+          <div className={styles['app__layout']}>
+            <aside className={styles['app__sidebar']}>
+              <Profile />
+            </aside>
+            <main className={styles['app__main']}>
+              <AddTrackForm onAddTrack={handleAddTrack} />
+            </main>
+          </div>
+          <section>
+            <h2 className={styles['app__section-title']}>Список треков ({tracks.length})</h2>
+            <div className={styles['track-list']}>
+              {tracks.map((track) => (
+                  <TrackCard key={track.id} track={track} onRemove={handleRemoveTrack} />
+              ))}
+            </div>
+          </section>
         </div>
-      </div>
+      </>
   );
 }
 

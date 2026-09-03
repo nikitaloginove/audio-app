@@ -1,25 +1,28 @@
 .app {
     max-width: 900px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 0 20px 20px;
 }
 
-.app__title {
-    font-family: 'Tektur', sans-serif;
-    background-color: var(--color-dark-blue);
-    color: var(--color-white);
-    text-align: center;
-    padding: 16px 0;
-    border-radius: 8px;
+.app__layout {
+    display: flex;
+    gap: 30px;
     margin-bottom: 30px;
-    font-size: 2rem;
-    letter-spacing: 1px;
+}
+
+.app__sidebar {
+    flex: 0 0 220px;
+}
+
+.app__main {
+    flex: 1;
 }
 
 .app__section-title {
-    margin-top: 30px;
+    margin-top: 20px;
     color: var(--color-dark-blue);
     padding-bottom: 8px;
+    border-bottom: 2px solid var(--color-dark-blue);
 }
 
 .track-list {
@@ -27,4 +30,14 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
     margin-top: 20px;
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 700px) {
+    .app__layout {
+        flex-direction: column;
+    }
+    .app__sidebar {
+        flex: 1;
+    }
 }
