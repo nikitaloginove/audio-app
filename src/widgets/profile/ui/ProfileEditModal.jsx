@@ -27,6 +27,20 @@ export const ProfileEditModal = ({ isOpen, onClose, onSave, initialProfile }) =>
       <Modal isOpen={isOpen} onClose={onClose} title="Редактировать профиль">
         <form onSubmit={handleSubmit} className={styles['edit-form']}>
           <div className={styles['edit-form__field']}>
+            <div className={styles['edit-form__avatar-field']}>
+              {avatar && <img src={avatar} alt="preview" className={styles['edit-form__avatar-preview']} />}
+              <label className={styles['edit-form__file-label']}>
+                Загрузить аватар
+                <input
+                    type="file"
+                    className={styles['edit-form__input-file']}
+                    accept="image/*"
+                    onChange={handleAvatarChange}
+                />
+              </label>
+            </div>
+          </div>
+          <div className={styles['edit-form__field']}>
             <label>Имя</label>
             <input
                 type="text"
@@ -44,11 +58,7 @@ export const ProfileEditModal = ({ isOpen, onClose, onSave, initialProfile }) =>
                 placeholder="Город проживания"
             />
           </div>
-          <div className={styles['edit-form__field']}>
-            <label>Аватар</label>
-            <input type="file" accept="image/*" onChange={handleAvatarChange} />
-            {avatar && <img src={avatar} alt="preview" className={styles['edit-form__avatar-preview']} />}
-          </div>
+
           <button type="submit" className={styles['edit-form__submit']}>Сохранить</button>
         </form>
       </Modal>

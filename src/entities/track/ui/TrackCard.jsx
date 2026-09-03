@@ -16,13 +16,13 @@ export const TrackCard = ({ track, onRemove }) => {
             Без обложки
           </div>
       )}
-      <h3 className={styles['track-card__title']}>{title}</h3>
-      <p className={styles['track-card__artist']}>{artist}</p>
+      <h3 className={styles['track-card__title']}>{artist}</h3>
+      <p className={styles['track-card__artist']}>{title}</p>
       <button
           onClick={() => onRemove(id)}
           className={styles['track-card__delete-btn']}
       >
-        ✕ Удалить
+        Удалить
       </button>
     </div>
   );

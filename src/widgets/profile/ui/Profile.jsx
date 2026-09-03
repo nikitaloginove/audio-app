@@ -24,22 +24,24 @@ export const Profile = () => {
 
   return (
       <div className={styles['profile']}>
-        <div className={styles['profile__avatar']}>
-          {profile.avatar ? (
-              <img src={profile.avatar} alt="avatar" />
-          ) : (
-              <div className={styles['profile__avatar-placeholder']}>
-                <span>👤</span>
-              </div>
-          )}
+        <div className={styles['profile__wrapper']}>
+          <div className={styles['profile__avatar']}>
+            {profile.avatar ? (
+                <img src={profile.avatar} alt="avatar" />
+            ) : (
+                <div className={styles['profile__avatar-placeholder']}>
+                  <span>👤</span>
+                </div>
+            )}
+          </div>
+          <div className={styles['profile__info']}>
+            <div className={styles['profile__name']}>{profile.name || 'Гость'}</div>
+            <div className={styles['profile__city']}>{profile.city || 'Город не указан'}</div>
+          </div>
         </div>
-        <div className={styles['profile__info']}>
-          <div className={styles['profile__name']}>{profile.name || 'Гость'}</div>
-          <div className={styles['profile__city']}>{profile.city || 'Город не указан'}</div>
-          <button className={styles['profile__edit-btn']} onClick={() => setIsModalOpen(true)}>
-            Редактировать
-          </button>
-        </div>
+        <button className={styles['profile__edit-btn']} onClick={() => setIsModalOpen(true)}>
+          Редактировать
+        </button>
         <ProfileEditModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}

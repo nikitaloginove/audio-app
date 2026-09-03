@@ -22,7 +22,7 @@
     margin-top: 20px;
     color: var(--color-dark-blue);
     padding-bottom: 8px;
-    border-bottom: 2px solid var(--color-dark-blue);
+    text-align: center;
 }
 
 .track-list {
@@ -32,7 +32,6 @@
     margin-top: 20px;
 }
 
-/* Адаптив для мобильных */
 @media (max-width: 700px) {
     .app__layout {
         flex-direction: column;

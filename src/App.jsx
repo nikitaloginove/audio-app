@@ -56,7 +56,7 @@ function App() {
             </main>
           </div>
           <section>
-            <h2 className={styles['app__section-title']}>Список треков ({tracks.length})</h2>
+            <h2 className={styles['app__section-title']}>Медиатека</h2>
             <div className={styles['track-list']}>
               {tracks.map((track) => (
                   <TrackCard key={track.id} track={track} onRemove={handleRemoveTrack} />
