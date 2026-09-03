@@ -1,0 +1,40 @@
+@import '@fontsource/tektur';
+@import '@fontsource/jetbrains-mono';
+
+:root {
+    /* Основные цвета */
+    --color-bg: #F9F9F9;
+    --color-white: #FFFFFF;
+    --color-dark-blue: #1A2A3A;
+    --color-green: #2E7D32;
+    --color-dark-green: #1B5E20;
+    --color-text-primary: #1E1E1E;
+    --color-text-secondary: #555555;
+    --color-red: #E53935;
+    --color-dark-red: #B71C1C;
+    --color-gray-light: #E0E0E0;
+    --color-shadow: rgba(26, 42, 58, 0.1);
+
+    /* Цвета плеера */
+
+    --color-player-bg: var(--color-dark-blue);
+    --color-player-control: var(--color-white);
+    --color-progress-bg: #D3D3D3;
+    --color-progress-fill: var(--color-green);
+
+    /* Шрифт */
+
+    --font-primary: 'JetBrains Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, input, button, textarea, select {
+    font-family: var(--font-primary);
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+}

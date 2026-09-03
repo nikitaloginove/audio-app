@@ -4,21 +4,19 @@ import styles from './AddTrackForm.module.css';
 export const AddTrackForm = ({ onAddTrack }) => {
   const [title, setTitle] = useState('');
   const [artist, setArtist] = useState('');
-  const [audioUrl, setAudioUrl] = useState('');
-  const [coverUrl, setCoverUrl] = useState('');
   const [audioFile, setAudioFile] = useState(null);
   const [coverFile, setCoverFile] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const finalAudioUrl = audioUrl.trim() || (audioFile ? URL.createObjectURL(audioFile) : '');
-    if (!finalAudioUrl) {
-      alert('Пожалуйста, укажите ссылку на аудио или загрузите файл');
+    if (!audioFile) {
+      alert('Пожалуйста, выберите аудиофайл');
       return;
     }
 
-    const finalCoverUrl = coverUrl.trim() || (coverFile ? URL.createObjectURL(coverFile) : '');
+    const finalAudioUrl = URL.createObjectURL(audioFile);
+    const finalCoverUrl = coverFile ? URL.createObjectURL(coverFile) : '';
 
     const newTrack = {
       id: Date.now() + Math.random(),
@@ -32,8 +30,6 @@ export const AddTrackForm = ({ onAddTrack }) => {
 
     setTitle('');
     setArtist('');
-    setAudioUrl('');
-    setCoverUrl('');
     setAudioFile(null);
     setCoverFile(null);
   };
@@ -63,21 +59,9 @@ export const AddTrackForm = ({ onAddTrack }) => {
       <div className={styles['add-track-form']}>
         <h3 className={styles['add-track-form__title']}>Добавить трек</h3>
         <form onSubmit={handleSubmit}>
-          <div className={styles['add-track-form__field']}>
-            <label className={styles['add-track-form__label']}>
-              Название трека:
-              <input
-                  type="text"
-                  className={styles['add-track-form__input-text']}
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  placeholder="Введите название"
-              />
-            </label>
-          </div>
 
           <div className={styles['add-track-form__field']}>
-            <label className={styles['add-track-form__label']}>
+            <label className={styles['add-track-form__label-text']}>
               Исполнитель:
               <input
                   type="text"
@@ -90,19 +74,22 @@ export const AddTrackForm = ({ onAddTrack }) => {
           </div>
 
           <div className={styles['add-track-form__field']}>
-            <label className={styles['add-track-form__label']}>
-              Ссылка на аудио (или загрузите файл ниже):
+            <label className={styles['add-track-form__label-text']}>
+              Название трека:
               <input
                   type="text"
                   className={styles['add-track-form__input-text']}
-                  value={audioUrl}
-                  onChange={(e) => setAudioUrl(e.target.value)}
-                  placeholder="https://example.com/track.mp3"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Введите название"
               />
             </label>
+          </div>
+
+          <div className={styles['add-track-form__field']}>
             <div className={styles['add-track-form__file-wrapper']}>
               <label className={styles['add-track-form__label']}>
-                Или выберите аудиофайл:
+                Загрузите аудиофайл
                 <input
                     type="file"
                     className={styles['add-track-form__input-file']}
@@ -119,19 +106,9 @@ export const AddTrackForm = ({ onAddTrack }) => {
           </div>
 
           <div className={styles['add-track-form__field']}>
-            <label className={styles['add-track-form__label']}>
-              Ссылка на обложку (или загрузите картинку):
-              <input
-                  type="text"
-                  className={styles['add-track-form__input-text']}
-                  value={coverUrl}
-                  onChange={(e) => setCoverUrl(e.target.value)}
-                  placeholder="https://example.com/cover.jpg"
-              />
-            </label>
             <div className={styles['add-track-form__file-wrapper']}>
               <label className={styles['add-track-form__label']}>
-                Или выберите изображение:
+                Загрузите изображение
                 <input
                     type="file"
                     className={styles['add-track-form__input-file']}
@@ -147,9 +124,11 @@ export const AddTrackForm = ({ onAddTrack }) => {
             </div>
           </div>
 
-          <button type="submit" className={styles['add-track-form__submit']}>
-            Добавить трек
-          </button>
+          <div className={styles['add-track-form__actions']}>
+            <button type="submit" className={styles['add-track-form__submit']}>
+              Добавить
+            </button>
+          </div>
         </form>
       </div>
   );

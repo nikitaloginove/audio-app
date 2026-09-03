@@ -58,7 +58,7 @@ function App() {
 
   return (
       <div className={styles.app}>
-        <h1 className={styles['app__title']}>🎵 Мой аудиоплеер</h1>
+        <h1 className={styles['app__title']}>Аудиоплеер</h1>
         <AddTrackForm onAddTrack={handleAddTrack} />
         <h2 className={styles['app__section-title']}>
           Список треков ({tracks?.length})
