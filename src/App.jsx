@@ -1,9 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AddTrackForm } from './features/add-track/AddTrackForm';
+import { TrackCard } from './entities/track/ui/TrackCard';
 import styles from './App.module.css';
 
+const STORAGE_KEY = 'tracks';
+
 function App() {
-  const [tracks, setTracks] = useState([]);
+  const [tracks, setTracks] = useState(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          const validTracks = parsed.filter(track => {
+            return (
+                track &&
+                typeof track === 'object' &&
+                typeof track.url === 'string' &&
+                !track.url.startsWith('blob:')
+            );
+          });
+          return validTracks;
+        }
+      }
+    } catch (e) {
+      console.error('Ошибка при чтении localStorage:', e);
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tracks));
+    } catch (error) {
+      console.error('Ошибка при сохранении в localStorage:', error);
+    }
+  }, [tracks]);
 
   const handleAddTrack = (newTrack) => {
     setTracks((prev) => [...prev, newTrack]);
@@ -27,36 +59,17 @@ function App() {
   return (
       <div className={styles.app}>
         <h1 className={styles['app__title']}>🎵 Мой аудиоплеер</h1>
-
         <AddTrackForm onAddTrack={handleAddTrack} />
-
         <h2 className={styles['app__section-title']}>
-          Список треков ({tracks.length})
+          Список треков ({tracks?.length})
         </h2>
-
         <div className={styles['track-list']}>
-          {tracks.map((track) => (
-              <div key={track.id} className={styles['track-card']}>
-                {track.cover ? (
-                    <img
-                        src={track.cover}
-                        alt={track.title}
-                        className={styles['track-card__cover']}
-                    />
-                ) : (
-                    <div className={styles['track-card__placeholder']}>
-                      Без обложки
-                    </div>
-                )}
-                <h3 className={styles['track-card__title']}>{track.title}</h3>
-                <p className={styles['track-card__artist']}>{track.artist}</p>
-                <button
-                    onClick={() => handleRemoveTrack(track.id)}
-                    className={styles['track-card__delete-btn']}
-                >
-                  ✕ Удалить
-                </button>
-              </div>
+          {tracks?.map((track) => (
+              <TrackCard
+                  key={track.id}
+                  track={track}
+                  onRemove={handleRemoveTrack}
+              />
           ))}
         </div>
       </div>
