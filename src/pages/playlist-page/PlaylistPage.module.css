@@ -1,0 +1,13 @@
+.playlist-page__title {
+    margin-top: 0;
+    color: var(--color-dark-blue);
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--color-dark-blue);
+    margin-bottom: 20px;
+}
+
+.playlist-page__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}

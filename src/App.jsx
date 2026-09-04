@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { AddTrackForm } from './features/add-track/AddTrackForm';
-import { TrackCard } from './entities/track/ui/TrackCard';
 import { Header } from './widgets/header/ui/Header';
-import { Profile } from './widgets/profile/ui/Profile';
+import { Sidebar } from './widgets/sidebar/Sidebar';
+import { UploadPage } from './pages/upload-page/UploadPage';
+import { PlaylistPage } from './pages/playlist-page/PlaylistPage';
 import styles from './App.module.css';
 
 const STORAGE_KEY = 'tracks';
@@ -23,6 +23,8 @@ function App() {
     }
     return [];
   });
+
+  const [currentPage, setCurrentPage] = useState('upload');
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tracks));
@@ -46,23 +48,14 @@ function App() {
   return (
       <>
         <Header />
-        <div className={styles['app']}>
-          <div className={styles['app__layout']}>
-            <aside className={styles['app__sidebar']}>
-              <Profile />
-            </aside>
-            <main className={styles['app__main']}>
-              <AddTrackForm onAddTrack={handleAddTrack} />
-            </main>
-          </div>
-          <section>
-            <h2 className={styles['app__section-title']}>Медиатека</h2>
-            <div className={styles['track-list']}>
-              {tracks.map((track) => (
-                  <TrackCard key={track.id} track={track} onRemove={handleRemoveTrack} />
-              ))}
-            </div>
-          </section>
+        <div className={styles['layout']}>
+          <Sidebar currentPage={currentPage} onPageChange={setCurrentPage} />
+          <main className={styles['main']}>
+            {currentPage === 'upload' && <UploadPage onAddTrack={handleAddTrack} />}
+            {currentPage === 'playlist' && (
+                <PlaylistPage tracks={tracks} onRemoveTrack={handleRemoveTrack} />
+            )}
+          </main>
         </div>
       </>
   );

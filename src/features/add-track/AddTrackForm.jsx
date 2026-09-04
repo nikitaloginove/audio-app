@@ -57,7 +57,6 @@ export const AddTrackForm = ({ onAddTrack }) => {
 
   return (
       <div className={styles['add-track-form']}>
-        <h3 className={styles['add-track-form__title']}>Добавить трек</h3>
         <form onSubmit={handleSubmit}>
 
           <div className={styles['add-track-form__field']}>

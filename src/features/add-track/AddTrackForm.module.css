@@ -3,15 +3,7 @@
     border: 1px solid var(--color-dark-blue);
     border-radius: 8px;
     padding: 20px;
-    margin-bottom: 20px;
     box-shadow: 0 2px 8px var(--color-shadow);
-}
-
-.add-track-form__title {
-    color: var(--color-dark-blue);
-    margin-top: 0;
-    margin-bottom: 16px;
-    text-align: center;
 }
 
 .add-track-form__field {
