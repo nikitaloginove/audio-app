@@ -1,0 +1,118 @@
+.player {
+    background-color: var(--color-dark-blue);
+    color: var(--color-white);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+
+.player__track-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 150px;
+}
+
+.player__title {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.player__artist {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.player__empty {
+    opacity: 0.6;
+    font-style: italic;
+}
+
+.player__controls {
+    display: flex;
+    gap: 12px;
+}
+
+.player__controls button {
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.player__controls button:hover:not(:disabled) {
+    transform: scale(1.1);
+}
+
+.player__controls button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.player__progress {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 200px;
+}
+
+.player__progress input[type="range"] {
+    flex: 1;
+    height: 4px;
+    -webkit-appearance: none;
+    background: var(--color-gray-light);
+    border-radius: 2px;
+}
+
+.player__progress input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: var(--color-green);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.player__volume {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.player__volume input[type="range"] {
+    width: 80px;
+    height: 4px;
+    -webkit-appearance: none;
+    background: var(--color-gray-light);
+    border-radius: 2px;
+}
+
+.player__volume input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: var(--color-green);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .player {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 16px;
+    }
+    .player__track-info {
+        text-align: center;
+    }
+    .player__controls {
+        justify-content: center;
+    }
+}

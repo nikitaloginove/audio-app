@@ -3,6 +3,8 @@ import { Header } from './widgets/header/ui/Header';
 import { Sidebar } from './widgets/sidebar/Sidebar';
 import { UploadPage } from './pages/upload-page/UploadPage';
 import { PlaylistPage } from './pages/playlist-page/PlaylistPage';
+import { Player } from './widgets/player/ui/Player';
+import { usePlayerStore } from './shared/lib/store/playerStore';
 import styles from './App.module.css';
 
 const STORAGE_KEY = 'tracks';
@@ -25,6 +27,10 @@ function App() {
   });
 
   const [currentPage, setCurrentPage] = useState('upload');
+
+  useEffect(() => {
+    usePlayerStore.getState().setTracks(tracks);
+  }, [tracks]);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tracks));
@@ -57,6 +63,7 @@ function App() {
             )}
           </main>
         </div>
+        <Player />
       </>
   );
 }
